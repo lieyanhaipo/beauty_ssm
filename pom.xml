@@ -10,6 +10,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
 		<spring.version>4.2.0.RELEASE</spring.version>
+		<shiro.version>1.2.3</shiro.version>
 	</properties>
 
 	<dependencies>
@@ -20,11 +21,13 @@
 			<version>18.0</version>
 		</dependency>
 
+		<!-- log4j和logback是具体的日志框架-->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
+		<!-- slf4j是java的一个日志门面，实现了日志框架一些通用的api-->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -228,6 +231,29 @@
 			<version>1.0.8</version>
 		</dependency>
 		<!--mybatis 数据访问层 end -->
+
+		<!--shiro 权限控制 begin-->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-cas</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<!--shiro 权限控制 end-->
 	</dependencies>
 	<!-- Build Settings -->
 	<!--http://maven.apache.org/pom.html#Build_Settings -->

@@ -8,6 +8,13 @@
 		WHERE 
 		user_phone= #{userPhone} limit 1
 	</select>
+
+	<select id="queryByName" resultType="User">
+		SELECT *
+		FROM _USER
+		where
+		user_name= #{userName} limit 1
+	</select>
 	
 	<select id="queryAll" resultType="User">
 		SELECT *

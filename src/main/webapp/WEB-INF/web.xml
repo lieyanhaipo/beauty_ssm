@@ -9,6 +9,18 @@
 		<welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
 	</welcome-file-list>
 
+	<!-- 配置beans ,因为dispatcher
+	Spring MVC是通过DispatcherServlet来加载Spring配置文件的，因此不需要在web.xml中配置ContextLoaderListener。但是CXF却需要通过ContextLoaderListener来加载Spring。
+	这样就产生了一个矛盾，如果不配置ContextLoaderListener，CXF就无法正常使用。但如果配置ContextLoaderListener，又会造成Spring的重复加载（DispatcherServlet一次，ContextLoaderListener一次）
+	所以分开配置spring-mvc.xml和 application-context.xml-->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/application-context.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
 	<!--配置DispatcherServlet -->
 	<servlet>
 		<servlet-name>spring-dispatcher</servlet-name>
@@ -16,7 +28,7 @@
 		<!-- 配置SpringMVC需要加载的配置文件 spring-xxx.xml -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring/spring-*.xml</param-value>
+			<param-value>classpath:spring/spring-mvc.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -34,6 +46,16 @@
 	<servlet-mapping>
 		<servlet-name>DruidStatView</servlet-name>
 		<url-pattern>/druid/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- webservice框架cxf的servlet -->
+	<servlet>
+		<servlet-name>CXFServlet</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CXFServlet</servlet-name>
+		<url-pattern>/webservice/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- shiro安全控制-->

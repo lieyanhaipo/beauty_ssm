@@ -53,6 +53,7 @@
         <!-- <property name="successUrl" value="/" ></property> -->
         <!-- 用户访问未对其授权的资源时，所显示的连接 -->
         <property name="unauthorizedUrl" value="/"></property>
+        <!-- Shiro权限过滤过滤器定义 -->
         <property name="filterChainDefinitions">
             <value>
                 /security/*=anon

@@ -15,8 +15,14 @@ public interface UserDao {
      * @return
      */
     User queryByPhone(long userPhone);
-    
-    
+
+    /**
+     * 根据姓名查找用户
+     * @param userName
+     * @return
+     */
+    User queryByName(String userName);
+
     /**
      * 根据偏移量查询用户列表
      *

@@ -1,12 +1,16 @@
 package com.yingjun.ssm.web;
 
 
+import com.yingjun.ssm.entity.SysUser;
+import com.yingjun.ssm.service.SysUserService;
+import com.yingjun.ssm.util.EncryptionUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +28,16 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginController {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    private SysUserService sysUserService;
+
+    /**
+     * 登录
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
     @RequestMapping(value="/doLogin",method = RequestMethod.POST)
     public String doLogin(HttpServletRequest request, HttpServletResponse response, Model model){
         LOG.info("user login");
@@ -80,5 +94,14 @@ public class LoginController {
             System.out.println(msg);
         }
         return "login";
+    }
+
+    @RequestMapping(value="doRegister", method=RequestMethod.POST)
+    public String doRegister(HttpServletRequest request, HttpServletResponse response, SysUser sysUser){
+        LOG.info("用户注册");
+        String password = sysUser.getPassword();
+        sysUser.setPassword(EncryptionUtils.encrypt(password));
+        sysUserService.saveUser(sysUser);
+        return "redirect:/index.jsp";
     }
 }
